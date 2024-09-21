@@ -4,17 +4,15 @@ import { notify } from "../reducers/notificationReducer";
   
 const AnecdoteList = () => {
   const dispatch = useDispatch()
-     const anecdotes = useSelector(state => {
-        let anecdotes = state.anecdotes
-        anecdotes =  [...anecdotes].sort((a,b) => b.votes - a.votes);
-
+  const anecdotes = useSelector(state => {
+    let anecdotes = state.anecdotes
+    anecdotes =  [...anecdotes].sort((a,b) => b.votes - a.votes);
     anecdotes = anecdotes.filter(anecdote=> anecdote.content.match(new RegExp(state.filter,'i')))
-        return anecdotes
+    return anecdotes
   })
   const handleVote = (anecdote) =>{
-    dispatch(vote(anecdote.id))
-    dispatch(notify(`you voted '${anecdote.content}'`))
-    setTimeout(() => dispatch(notify(null)),5000)
+    dispatch(vote(anecdote))
+    dispatch(notify(`you voted '${anecdote.content}'`,5000))
   }
  
  return (anecdotes.map(anecdote =>
